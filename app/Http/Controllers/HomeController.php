@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Challenge;
 use App\User;
+use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -30,7 +31,6 @@ class HomeController extends Controller
     {
         $you=User::all()->where('id','=',Auth::id())->first();
         $users=User::all()->all();
-        //dd($users);
         foreach ($users as $user){
             $user['score']=$user->getScore();
         }
@@ -50,16 +50,16 @@ class HomeController extends Controller
         if ($challenge!=null){
             if(!($you->validatedChallenge($challenge))){
                 $you->challenges()->attach($challenge->id);
-                return redirect()->action('HomeController@index',['result'=>'true']);
+                return redirect()->action('HomeController@index',array('result'=>'true'));
             }
             else{
-                return redirect()->action('HomeController@index',['result'=>'exist']);
+                return redirect()->action('HomeController@index',array('result'=>'exist'));
             }
 
         }
         else{
-            return Redirect::route('home')->with('result','false');
-            //return redirect()->action('HomeController@index',['result'=>'false']);
+            //return Redirect::route('home')->with('result','false');
+            return redirect()->action('HomeController@index',array('result'=>'false'));
         }
 
     }
