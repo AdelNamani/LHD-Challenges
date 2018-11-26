@@ -31,9 +31,13 @@ class HomeController extends Controller
     {
         $you=User::all()->where('id','=',Auth::id())->first();
         $users=User::all()->all();
+        $i=0;
         foreach ($users as $user){
             $user['score']=$user->getScore();
+            if ($user->getScore()==0) unset($users[$i]);
+            $i++;
         }
+        //dd($users);
         $array = collect($users)->sortBy('score')->reverse()->toArray();
         if (isset($result)){
 

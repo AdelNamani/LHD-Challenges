@@ -11,8 +11,17 @@ use Illuminate\Support\Facades\DB;
 class MyController extends Controller
 {
     public function myLogin(Request $request){
+        $request->validate([
+           'email'=>'exists:users'
+        ]);
         $user=DB::table('users')->where('email','=',$request['email'])->first();
-        Auth::loginUsingId(($user->id));
-        return(redirect('/home'));
+        if($user!=null){
+            Auth::loginUsingId(($user->id));
+            return(redirect('/home'));
+        }
+        else{
+            return(redirect('/login'));
+        }
+
     }
 }

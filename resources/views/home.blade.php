@@ -5,15 +5,15 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">Dashboard</div>
+                    <div class="card-header">Scoreboard</div>
 
                     <div class="card-body">
-                        <div style="margin-bottom: 10px">
-                            <div style="display: inline-block;padding-top: 10px">
+                        <div class="row" style="margin-bottom: 10px">
+                            <div class="col-md-7" style="display: inline-block;padding-top: 10px">
                                 Your score is {{$userScore}} !
                             </div>
-                            <div class="float-right">
-                                <form action="{{route('validate')}}" method="POST" class="float-right">
+                            <div class="col-md-5">
+                                <form action="{{route('validate')}}" method="POST" >
                                     @csrf
                                     <div class="input-group mb-3">
                                         <input type="text" name="flag" class="form-control" placeholder="Enter the flag"
@@ -25,24 +25,28 @@
                                 </form>
                             </div>
                         </div>
-                        @if(isset($_GET['result']))
-                            <?php $result = $_GET['result'] ?>
-                            @if($result=='true')
-                                <div class="alert alert-success" role="alert">
-                                    Good job :)
-                                </div>
+                        <div class="row">
+                            <div class="col">
+                            @if(isset($_GET['result']))
+                                <?php $result = $_GET['result'] ?>
+                                @if($result=='true')
+                                    <div class="alert alert-success" role="alert">
+                                        Good job :)
+                                    </div>
+                                @endif
+                                @if($result=='false')
+                                    <div class="alert alert-danger" role="alert">
+                                        Try again ;)
+                                    </div>
+                                @endif
+                                @if($result=='exist')
+                                    <div class="alert alert-warning" role="alert">
+                                        Already validated --'
+                                    </div>
+                                @endif
                             @endif
-                            @if($result=='false')
-                                <div class="alert alert-danger" role="alert">
-                                    Try again ;)
-                                </div>
-                            @endif
-                            @if($result=='exist')
-                                <div class="alert alert-warning" role="alert">
-                                    Already validated --'
-                                </div>
-                            @endif
-                        @endif
+                            </div>
+                        </div>
                     </div>
 
                 </div>

@@ -48,7 +48,7 @@
                          </h3>
                          <input class="input" id="email" type="email" name="email" value="{{ old('email') }}" required autofocus>
                          @if ($errors->has('email'))
-                                    <span class="invalid-feedback" role="alert">
+                                    <span class="invalid-feedback" role="alert" style="margin-top: 10px;color: red">
                                         <strong>{{ $errors->first('email') }}</strong>
                                     </span>
                         @endif
